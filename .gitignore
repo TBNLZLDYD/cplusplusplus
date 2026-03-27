@@ -50,3 +50,7 @@ test-extract/
 node_modules/
 *.min.js
 *.min.css
+
+# 版本发布说明文件 - 不需要上传
+RELEASE.md
+release.md

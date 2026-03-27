@@ -14,11 +14,12 @@
 #include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Sema/Sema.h"
+#include "clang/Basic/IdentifierTable.h"
 using namespace clang;
 
 namespace CPlusPlusPlus {
 
-class CPlusPlusPlusTransformer : public RecursiveASTVisitor<CPlusPlusPlusTransformer> {
+class CPlusPlusPlusTransformer : public RecursiveASTVisitor<CPlusPlusPlusPlusTransformer> {
 private:
   Sema &S;
 
@@ -31,21 +32,30 @@ public:
     return true;
   }
 
-  bool VisitStmt(Stmt *S) {
+  bool VisitStmt(Stmt *Stmt) {
     // Handle defer statements and other new statements
-    // TODO: Implement defer -> RAII guard class translation
+    if (auto *DeferStmt = dyn_cast<DeferStmt>(Stmt)) {
+      // TODO: Implement defer -> RAII guard class translation
+    }
     return true;
   }
 
   bool VisitExpr(Expr *E) {
     // Handle ? operator, |> operator, etc.
-    // TODO: Implement error propagation, pipe operator, etc.
+    if (auto *ErrorPropExpr = dyn_cast<ErrorPropagationExpr>(E)) {
+      // TODO: Implement error propagation translation
+    } else if (auto *PipeExpr = dyn_cast<PipeOperatorExpr>(E)) {
+      // TODO: Implement pipe operator translation
+    }
     return true;
   }
 
   bool VisitCXXRecordDecl(CXXRecordDecl *RD) {
     // Handle @property and interface
-    // TODO: Implement @property -> get/set methods and interface -> pure virtual base class
+    if (RD->isInterface()) {
+      // TODO: Implement interface -> pure virtual base class translation
+    }
+    // TODO: Implement @property -> get/set methods translation
     return true;
   }
 

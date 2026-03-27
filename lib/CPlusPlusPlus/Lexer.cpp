@@ -13,19 +13,37 @@
 #include "clang/Lex/Lexer.h"
 #include "clang/Lex/Preprocessor.h"
 #include "clang/Basic/TokenKinds.h"
+#include "clang/Basic/IdentifierTable.h"
 using namespace clang;
 
 namespace CPlusPlusPlus {
 
-// TODO: Implement lexer extensions for C+++ keywords and operators
-// - let/var variables
-// - auto? optional type
-// - defer statement
-// - ? error propagation operator
-// - |> pipe operator
-// - if let/while let pattern matching
-// - _ default argument placeholder
-// - @property annotation
-// - interface keyword
+// C+++ keywords
+static const char* const CPlusPlusPlusKeywords[] = {
+  "let",
+  "var",
+  "defer",
+  "match",
+  "interface",
+  nullptr
+};
+
+// Register C+++ keywords
+void registerKeywords(IdentifierTable &IdentTable) {
+  for (const char* const* KW = CPlusPlusPlusKeywords; *KW; ++KW) {
+    IdentTable.get(*KW).setIsKeyword(true);
+  }
+}
+
+// Handle C+++ operators
+TokenKind getOperatorKind(const char* Op, unsigned Length) {
+  if (Length == 2) {
+    if (Op[0] == '|' && Op[1] == '>')
+      return tok::pipe_operator; // Custom token for pipe operator
+    if (Op[0] == '?' && Op[1] == '?')
+      return tok::question_question; // Custom token for error propagation
+  }
+  return tok::unknown;
+}
 
 } // namespace CPlusPlusPlus

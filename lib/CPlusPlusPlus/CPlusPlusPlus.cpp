@@ -18,7 +18,9 @@
 #include "clang/AST/RecursiveASTVisitor.h"
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Sema/Sema.h"
+#include "clang/Basic/IdentifierTable.h"
 #include "llvm/Support/raw_ostream.h"
+#include "Lexer.h"
 
 using namespace clang;
 
@@ -50,6 +52,9 @@ class CPlusPlusPlusAction : public PluginASTAction {
 protected:
   std::unique_ptr<ASTConsumer> CreateASTConsumer(CompilerInstance &CI,
                                                  llvm::StringRef) override {
+    // Register C+++ keywords
+    IdentifierTable &IdentTable = CI.getLangOpts().getIdentifierTable();
+    registerKeywords(IdentTable);
     return std::make_unique<CPlusPlusPlusConsumer>(CI);
   }
 
