@@ -1,0 +1,52 @@
+# 编译输出 - 不需要上传
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.obj
+*.lib
+*.a
+*.pdb
+
+# IDE 配置文件 - 不需要上传
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# 构建目录 - 不需要上传
+build/
+cmake-build-*/
+out/
+Debug/
+Release/
+x64/
+x86/
+
+# 临时文件 - 不需要上传
+*.tmp
+*.temp
+*.log
+*.cache
+
+# 压缩包 - 不需要上传
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+
+# 操作系统文件 - 不需要上传
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 测试生成的文件 - 不需要上传
+test-extract/
+*.test
+
+# 其他
+node_modules/
+*.min.js
+*.min.css
