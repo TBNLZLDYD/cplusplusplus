@@ -2,9 +2,28 @@
 
 C+++ 是 ISO C++ 的现代化扩展，添加了语法糖和增强的标准库功能，同时保持与 ISO C++ 的完全兼容性。
 
+## 核心价值
+
+### 对比原生 C++/Cpp20 的优势
+
+| 特性     | C+++            | 原生 C++/Cpp20       | 优势               | <br />        |
+| ------ | --------------- | ------------------ | ---------------- | :------------ |
+| 类型推断   | `let`/`var`     | `auto`             | 更清晰的语义区分（不可变/可变） | <br />        |
+| 可选类型   | `auto?`         | `std::optional`    | 更简洁的语法和错误传播      | <br />        |
+| 资源管理   | `defer`         | RAII               | 更直观的资源清理方式       | <br />        |
+| 错误传播   | `?` 运算符         | 手动检查               | 链式调用更简洁，减少嵌套     | <br />        |
+| 函数链式调用 | `|>` 管道运算符      | 嵌套函数调用           | 更清晰的数据流，可读性更好 |
+| 模式匹配   | `match` 语句      | `switch`           | 更强大的匹配能力，支持范围匹配  | <br />        |
+| 并行迭代   | 多容器并行 for 循环    | 手动实现               | 更简洁的并行处理语法       | <br />        |
+| 属性访问   | `@property`     | 手动编写 getter/setter | 减少样板代码，提高可维护性    | <br />        |
+| 接口定义   | `interface`     | 纯虚基类               | 更清晰的接口语义         | <br />        |
+| 随机数生成  | `Better Random` | `std::random`      | 更易用的 API，功能更丰富   | <br />        |
+| 高级数据结构 | 内置 AVL 树、跳表等    | 第三方库               | 开箱即用，无需额外依赖      | <br />        |
+
 ## 特性
 
 ### 语法糖
+
 - `let` 和 `var` 用于类型推断
 - `auto?` 用于可选类型
 - `defer` 语句用于资源管理
@@ -16,6 +35,7 @@ C+++ 是 ISO C++ 的现代化扩展，添加了语法糖和增强的标准库功
 - `interface` 用于纯虚基类
 
 ### 增强标准库
+
 - **Better Random**：易用的随机数生成
 - **高级数据结构**：AVL树、跳表、图、并查集
 - **容器增强**：`zip` 函数用于并行迭代
@@ -24,6 +44,7 @@ C+++ 是 ISO C++ 的现代化扩展，添加了语法糖和增强的标准库功
 ## 安装
 
 ### 先决条件
+
 - Clang 11.0.0 或更新版本
 - CMake 3.10 或更新版本
 - 兼容 C++17 的编译器
@@ -35,23 +56,19 @@ C+++ 是 ISO C++ 的现代化扩展，添加了语法糖和增强的标准库功
    git clone https://github.com/llvm/llvm-project.git
    cd llvm-project
    ```
-
 2. 创建构建目录：
    ```bash
    mkdir build
    cd build
    ```
-
 3. 配置 CMake：
    ```bash
    cmake -DLLVM_ENABLE_PROJECTS=clang ..
    ```
-
 4. 构建 C+++ 插件：
    ```bash
    cmake --build . --config Release --target ClangCPlusPlusPlus
    ```
-
 5. 插件将构建为 `ClangCPlusPlusPlus.dll`（Windows）或 `libClangCPlusPlusPlus.so`（Linux）。
 
 ## 使用
@@ -283,16 +300,97 @@ int main() {
 }
 ```
 
-## 兼容性
+## 版本兼容性
 
-- **ISO C++ 兼容性**：当不使用插件时，所有 C+++ 代码都是有效的 ISO C++ 代码
-- **Clang 版本**：需要 Clang 11.0.0 或更新版本
-- **平台**：Windows、Linux、macOS
+### 支持的 Clang 版本
+
+- **最低版本**：Clang 11.0.0
+- **推荐版本**：Clang 12.0.0 或更新版本
+
+### 支持的 C++ 标准
+
+- **最低标准**：C++17
+- **推荐标准**：C++17 或 C++20
+
+### 平台兼容性
+
+- **Windows**：完全兼容
+- **Linux**：完全兼容
+- **macOS**：完全兼容
+
+### 已知兼容场景
+
+- 所有标准 C++17 代码
+- 大部分 C++20 代码
+- 与标准库和第三方库的集成
+
+### 已知不兼容场景
+
+- 某些 C++20 特性可能需要特殊处理
+- 其他编译器（如 GCC、MSVC）不支持 C+++ 插件
 
 ## 许可证
 
 C+++ 是 LLVM 项目的一部分，根据 Apache License v2.0 with LLVM Exceptions 许可证发布。
 
+## 5 分钟快速尝鲜
+
+### 最小可运行示例
+
+创建一个名为 `quickstart.cpp` 的文件：
+
+```cpp
+#include "CPlusPlusPlus/All.h"
+
+int main() {
+    // 基本类型推断
+    let message = "Hello, C+++!";
+    var count = 0;
+    
+    // 可选类型和错误传播
+    auto? value = optional<int>(42);
+    if (value) {
+        count = *value;
+    }
+    
+    // 资源管理
+    defer {
+        std::cout << "Cleanup done!" << std::endl;
+    };
+    
+    // 管道运算符
+    auto result = 5 |> [](int x) { return x * 2; } |> [](int x) { return x + 1; };
+    
+    // 模式匹配
+    match (result) {
+        case 10: std::cout << "Result is 10" << std::endl; break;
+        case 11: std::cout << "Result is 11" << std::endl; break;
+        default: std::cout << "Result is " << result << std::endl; break;
+    }
+    
+    std::cout << message << " Count: " << count << std::endl;
+    return 0;
+}
+```
+
+### 编译命令
+
+假设您已经构建了 C+++ 插件，并且插件位于 `bin` 目录中：
+
+#### Windows
+
+```cmd
+clang++ -Xclang -load -Xclang bin\ClangCPlusPlusPlus.dll -I include -std=c++17 quickstart.cpp -o quickstart.exe
+quickstart.exe
+```
+
+#### Linux/macOS
+
+```bash
+clang++ -Xclang -load -Xclang bin/libClangCPlusPlusPlus.so -I include -std=c++17 quickstart.cpp -o quickstart
+./quickstart
+```
+
 ## 贡献
 
-欢迎贡献！请参阅 LLVM 项目的贡献指南了解更多信息。
+欢迎贡献！
