@@ -333,6 +333,10 @@ int main() {
 
 C+++ 是 LLVM 项目的一部分，根据 Apache License v2.0 with LLVM Exceptions 许可证发布。
 
+## 📚 相关文档
+- [安装指南](./INSTALL.md)
+- [常见问题](./FAQ.md)
+
 ## 5 分钟快速尝鲜
 
 ### 最小可运行示例
