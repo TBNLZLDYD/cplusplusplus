@@ -1,0 +1,81 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "C+++",
+  "scopeName": "source.cpp",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.cplusplusplus",
+          "match": "\\b(let|var|defer|match|interface)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "operator.cplusplusplus",
+          "match": "\\|>"
+        },
+        {
+          "name": "operator.cplusplusplus",
+          "match": "\\?\\?"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.c",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.c",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.c",
+          "begin": "'",
+          "end": "'",
+          "escapes": "\\\\."
+        },
+        {
+          "name": "string.quoted.single.c",
+          "begin": "\"",
+          "end": "\"",
+          "escapes": "\\\\."
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.c",
+          "match": "\\b\\d+(\\.\\d*)?([eE][+-]?\\d+)?\\b"
+        }
+      ]
+    }
+  }
+}

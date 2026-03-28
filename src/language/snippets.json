@@ -1,0 +1,58 @@
+{
+  "let variable": {
+    "prefix": "let",
+    "body": [
+      "let ${1:variable} = ${2:value};"
+    ],
+    "description": "C+++ let variable declaration"
+  },
+  "var variable": {
+    "prefix": "var",
+    "body": [
+      "var ${1:variable} = ${2:value};"
+    ],
+    "description": "C+++ var variable declaration"
+  },
+  "defer statement": {
+    "prefix": "defer",
+    "body": [
+      "defer {",
+      "  ${1:code}",
+      "};"
+    ],
+    "description": "C+++ defer statement"
+  },
+  "match statement": {
+    "prefix": "match",
+    "body": [
+      "match (${1:expression}) {",
+      "  case ${2:pattern}: ${3:code}; break;",
+      "  default: ${4:code}; break;",
+      "}"
+    ],
+    "description": "C+++ match statement"
+  },
+  "interface declaration": {
+    "prefix": "interface",
+    "body": [
+      "interface ${1:InterfaceName} {",
+      "  ${2:virtual void method() = 0;}",
+      "}"
+    ],
+    "description": "C+++ interface declaration"
+  },
+  "pipe operator": {
+    "prefix": "|>",
+    "body": [
+      "${1:value} |> ${2:function}"
+    ],
+    "description": "C+++ pipe operator"
+  },
+  "error propagation": {
+    "prefix": "?",
+    "body": [
+      "${1:expression} ? ${2:expression}"
+    ],
+    "description": "C+++ error propagation operator"
+  }
+}
